@@ -10,15 +10,3 @@ def get_github_access_token():
 
 
 
-
-
-def get_ftp_host():
-    return os.environ.get("FTP_HOST", "")
-
-
-def get_ftp_username():
-    return os.environ.get("FTP_USERNAME", "")
-
-
-def get_ftp_password():
-    return os.environ.get("FTP_PASSWORD", "")

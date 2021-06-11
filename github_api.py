@@ -5,7 +5,8 @@ from config import get_github_access_token
 REPO_NAME = 'heroku-files'
 
 
-github = Github("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")
+
+github = Github(get_github_access_token())
 
 
 def get_repos():
