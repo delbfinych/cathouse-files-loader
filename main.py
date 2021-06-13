@@ -1,9 +1,11 @@
 import logging
 import os
-
+import zlib
+from PIL import Image, ImageOps
+from io import BytesIO,StringIO
 from flask import Flask, request
-
 from github_api import *
+import glob
 
 try:
     app = Flask(__name__)
@@ -44,9 +46,21 @@ def get():
 @app.route('/put', methods=['POST'])
 def put():
     content = dict(request.files)['filename'].read()
-    filename = dict(request.files)['filename'].filename
    
+    filename = dict(request.files)['filename'].filename
+    stream = BytesIO(content)
+
+    image = Image.open(dict(request.files)['filename'])
+    image = ImageOps.exif_transpose(image)
     put_file(filename, content)
+    fp = BytesIO()
+    
+    
+    image.save("static/"+filename, filename.split('.')[1],optimize = True,quality=75)
+    put_file("c_" + filename, fp.getvalue())
+    
+    fp.close()
+    stream.close()
     return "Ok"
 
 
