@@ -56,7 +56,7 @@ def put():
     fp = BytesIO()
     
     
-    image.save("static/"+filename, filename.split('.')[1],optimize = True,quality=75)
+    image.save(fp, filename.split('.')[1],optimize = True,quality=75)
     put_file("c_" + filename, fp.getvalue())
     
     fp.close()
